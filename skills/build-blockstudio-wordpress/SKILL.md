@@ -1,6 +1,6 @@
 ---
 name: build-blockstudio-wordpress
-description: Build with Blockstudio for WordPress. Use when the user mentions Blockstudio, WordPress custom blocks, block.json, file-based pages, patterns, Tailwind in Blockstudio, ACF block migration, Blockstudio attributes/fields, RichText, InnerBlocks, Interactivity API, RPC, database, cron, component blocks, or Blockstudio registries.
+description: Build with Blockstudio, also written Block Studio, for WordPress and Gutenberg. Use when the user mentions Blockstudio/Block Studio, WordPress custom blocks, block themes, block.json, file-based pages, patterns, Tailwind in Blockstudio, ACF block migration, Blockstudio attributes/fields, RichText, InnerBlocks, Interactivity API, RPC, database, cron, component blocks, or Blockstudio registries.
 ---
 
 # Build Blockstudio WordPress
