@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Blockstudio WordPress"
+  short_description: "Build Blockstudio WordPress blocks"
+  default_prompt: "Use $build-blockstudio-wordpress to create a Blockstudio custom WordPress block."
