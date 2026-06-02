@@ -1,0 +1,41 @@
+{
+  "skill_name": "build-blockstudio-wordpress",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Use the Blockstudio WordPress skill to create a testimonial section block for a theme namespace called acme. It should have fields for quote, author name, author role, and one author photo. Use a PHP template and Tailwind utility classes.",
+      "expected_output": "A Blockstudio block folder with a valid block.json using the Blockstudio schema and attributes, plus an index.php template that reads from $a and escapes WordPress output.",
+      "files": [],
+      "expectations": [
+        "The output includes a block.json with the https://blockstudio.dev/schema/block schema.",
+        "The block name is namespaced as acme/testimonial or equivalent.",
+        "The output includes fields for quote, author name, author role, and one image/photo files field.",
+        "The PHP template uses $a for attributes and WordPress escaping functions."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use the Blockstudio WordPress skill to migrate this ACF-style card block into Blockstudio: get_field('title'), get_field('body'), get_field('image'), and a have_rows('links') loop with link label and URL. Give me the new block.json and PHP template.",
+      "expected_output": "A migrated Blockstudio block definition and template that replace ACF helpers with Blockstudio attributes, repeater fields, and $a access.",
+      "files": [],
+      "expectations": [
+        "The output avoids get_field(), the_field(), have_rows(), and the_row() in the final template.",
+        "The block.json defines title, body, image, and links fields under blockstudio.attributes.",
+        "The links field is modeled as a repeater or equivalent structured field.",
+        "The PHP template iterates over $a['links'] and escapes output."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Use the Blockstudio WordPress skill to build a locked file-based About page. The page should publish at /about, preserve editor changes to the hero and intro across template syncs, and only allow content editing for the h1 and first paragraph.",
+      "expected_output": "A pages/about/page.json and pages/about/index.php pattern with templateLock, blockEditingMode, keyed content, and contentOnly overrides.",
+      "files": [],
+      "expectations": [
+        "The output includes page.json with name/title/slug/postStatus and templateLock.",
+        "The page sets blockEditingMode or equivalent editing controls.",
+        "The template uses key attributes for content that should be preserved across syncs.",
+        "The h1 and first paragraph are marked blockEditingMode=\"contentOnly\"."
+      ]
+    }
+  ]
+}
