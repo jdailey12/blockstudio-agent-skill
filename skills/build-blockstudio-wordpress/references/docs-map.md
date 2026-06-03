@@ -8,7 +8,7 @@ Use this map to choose the official Blockstudio page to consult. Prefer official
 - Getting started: https://www.blockstudio.dev/docs/general/getting-started
 - Settings: https://www.blockstudio.dev/docs/general/settings
 - AI context file: https://www.blockstudio.dev/docs/dev/ai
-- Upstream LLM context fallback: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt
+- Planning / upstream LLM context fallback: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt
 - Tailwind CSS: https://www.blockstudio.dev/docs/tailwind
 
 ## Blocks
