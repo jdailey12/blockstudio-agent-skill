@@ -7,7 +7,7 @@ description: Build with Blockstudio, also written Block Studio, for WordPress an
 
 Use this skill to build WordPress blocks, pages, patterns, and reusable block systems with Blockstudio.
 
-Always consult the official Blockstudio docs for current API details and examples: https://www.blockstudio.dev/docs. When a project exposes `blockstudio-llm.txt`, fetch or read it before making framework-specific decisions; it is the canonical full context file for the installed Blockstudio version. If no project-specific file exists and network access is available, use the upstream context file as a fallback: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt.
+Always consult the official Blockstudio docs for current API details and examples: https://www.blockstudio.dev/docs. During planning, before the Blockstudio Composer package is installed or before a project-local `blockstudio-llm.txt` exists, fetch the upstream context file if network access is available and use it to choose the install path, folder structure, block schemas, fields, templates, pages, patterns, Tailwind setup, and advanced APIs: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt. After Blockstudio is installed and the project exposes `blockstudio-llm.txt`, prefer that project-local file because it matches the installed version.
 
 ## Quick Reference
 
@@ -30,7 +30,7 @@ Important URLs:
 - Settings schema: `https://blockstudio.dev/schema/blockstudio`
 - Main docs: https://www.blockstudio.dev/docs
 - AI context docs: https://www.blockstudio.dev/docs/dev/ai
-- Upstream LLM context fallback: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt
+- Planning / upstream LLM context fallback: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt
 
 Use `references/docs-map.md` to choose official docs pages. Use `references/patterns.md` for compact implementation patterns.
 
