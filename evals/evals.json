@@ -36,6 +36,32 @@
         "The template uses key attributes for content that should be preserved across syncs.",
         "The h1 and first paragraph are marked blockEditingMode=\"contentOnly\"."
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Use the Astro and Blockstudio WordPress skills to plan converting a running Astro homepage into a pixel-perfect WordPress homepage with editable Blockstudio sections. Include how you would inspect the source site, model content, create locked section blocks, handle assets, and verify both frontend and Gutenberg editor UX.",
+      "expected_output": "A conversion plan that treats the running Astro site as source of truth, models editable content before writing blocks, uses locked Blockstudio section blocks or pages, and includes frontend plus editor verification.",
+      "files": [],
+      "expectations": [
+        "The plan uses the running source site as the visual source of truth, not stale screenshots alone.",
+        "The plan includes a content-modeling pass before creating block attributes.",
+        "The plan prefers locked section-level Blockstudio blocks or file-based pages for the cloned homepage structure.",
+        "The plan verifies Gutenberg editor usability with sidebar open, sidebar closed, and each block selected.",
+        "The plan states that Tailwind is optional and normal CSS is acceptable when it fits the project."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Use the Blockstudio WordPress skill to design an editable portfolio grid section for a cloned homepage. The portfolio has 24 projects, each with a title, image, external URL, and manual display order. Explain whether to use a repeater or CPT, then sketch the Blockstudio block and backend verification steps.",
+      "expected_output": "A CPT-backed portfolio pattern where records are managed in WordPress and the Blockstudio section controls presentation, with editor guidance and verification steps.",
+      "files": [],
+      "expectations": [
+        "The answer chooses a CPT over a giant Blockstudio repeater for the 24 independently managed projects.",
+        "The CPT supports title, featured image, page-attributes/menu_order, and URL/meta.",
+        "The Blockstudio block controls section presentation and queries project records.",
+        "The block includes editor guidance such as a message field telling editors where portfolio records are managed.",
+        "The verification steps include the Gutenberg block preview plus CPT list and single edit screens."
+      ]
     }
   ]
 }
