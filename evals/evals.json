@@ -62,6 +62,20 @@
         "The block includes editor guidance such as a message field telling editors where portfolio records are managed.",
         "The verification steps include the Gutenberg block preview plus CPT list and single edit screens."
       ]
+    },
+    {
+      "id": 6,
+      "prompt": "Use the Blockstudio WordPress skill to design the editing model for a hero section with an inline headline, formatted legal disclaimer, replaceable background image, variant toggle, optional CTA, and a related featured project selector. Explain which editor features you would use and why.",
+      "expected_output": "An editing model that intentionally chooses RichText, WYSIWYG, MediaPlaceholder/files, toolbar fields, conditional/link fields, and populated select/storage where appropriate instead of defaulting every field to RichText or plain text.",
+      "files": [],
+      "expectations": [
+        "The answer uses configured RichText for stable inline headline editing.",
+        "The answer chooses wysiwyg or sidebar formatted text for long/legal formatted copy.",
+        "The answer recommends MediaPlaceholder or an intentional files field for replaceable media.",
+        "The answer places quick controls such as variant/theme in the toolbar.",
+        "The answer uses conditions or switch controls for optional CTA fields.",
+        "The answer uses a populated select/radio field for choosing related project records instead of typed IDs."
+      ]
     }
   ]
 }

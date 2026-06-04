@@ -6,6 +6,7 @@ These are stable patterns distilled from Blockstudio docs. Treat them as startin
 
 - Project triage
 - Block folders, block JSON, template variables, fields, repeaters, and file-based pages
+- Editing surface selection
 - Tailwind, component blocks, and full-stack blocks
 - Static/Astro clone workflow
 - Content model decision tree and CPT-backed sections
@@ -93,6 +94,141 @@ Conditional logic uses arrays of conditions. Inner arrays are AND groups, outer 
   "conditions": [[{ "id": "showButton", "operator": "==", "value": true }]]
 }
 ```
+
+## Editing Surface Selection
+
+Use the smallest editing surface that gives editors the right amount of control:
+
+- `text` / `textarea`: plain sidebar text, labels, URLs only when the `link` field is not appropriate, IDs, endpoints, and structural values.
+- `richtext` + `<RichText />`: stable inline headings, paragraph copy, and short labels.
+- `wysiwyg`: formatted long copy when inline editing would destabilize the visual preview.
+- `<InnerBlocks />`: flexible nested Gutenberg content inside a designed wrapper.
+- `<MediaPlaceholder />`: in-place media replacement for image/video slots.
+- `position: "toolbar"`: quick choices like alignment, variant, count, color mode, or layout.
+- `group` / `tabs`: organized settings panels for complex sections.
+- `message`: editor guidance, especially when content is managed in a CPT, options page, or external area.
+- `conditions` / `switch`: hide optional or advanced controls until relevant.
+- `storage`: mirror values into `postMeta` or `option` when they must be queryable, global, or available outside parsed block content.
+- populated `select` / `radio`: choose dynamic posts, terms, users, or external options without typing IDs.
+- `block` field or custom fields: reuse field systems and component blocks instead of duplicating schemas.
+
+Configure RichText deliberately:
+
+```php
+<RichText
+  attribute="heading"
+  tag="h2"
+  placeholder="Enter heading"
+  allowedFormats="<?php echo esc_attr(wp_json_encode(['core/bold', 'core/italic'])); ?>"
+  withoutInteractiveFormatting="true"
+/>
+```
+
+Constrain InnerBlocks whenever layout matters:
+
+```php
+<InnerBlocks
+  allowedBlocks="<?php echo esc_attr(wp_json_encode(['core/heading', 'core/paragraph'])); ?>"
+  template="<?php echo esc_attr(wp_json_encode([
+    ['core/heading', ['placeholder' => 'Heading']],
+    ['core/paragraph', ['placeholder' => 'Body']]
+  ])); ?>"
+  templateLock="contentOnly"
+/>
+```
+
+Remember that WordPress allows only one InnerBlocks area per block. For pixel-perfect clones, use InnerBlocks sparingly; it gives editors freedom that can create layout drift.
+
+Use MediaPlaceholder for in-place media selection:
+
+```php
+<MediaPlaceholder
+  attribute="image"
+  allowedTypes="<?php echo esc_attr(wp_json_encode(['image'])); ?>"
+/>
+```
+
+Use native WordPress block supports when editors should have familiar core controls such as alignment, anchor, spacing, color, or typography. Do not enable broad supports by default for pixel-perfect blocks.
+
+```json
+{
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "customClassName": false
+  }
+}
+```
+
+Use `useBlockProps` on the single root element when editor/frontend wrapper differences break layout.
+
+Common field ergonomics:
+
+```json
+[
+  {
+    "id": "variant",
+    "type": "select",
+    "label": "Variant",
+    "position": "toolbar",
+    "options": [
+      { "value": "light", "label": "Light" },
+      { "value": "dark", "label": "Dark" }
+    ]
+  },
+  {
+    "type": "message",
+    "value": "Portfolio cards are managed under Projects."
+  },
+  {
+    "id": "ctaUrl",
+    "type": "link",
+    "label": "CTA link",
+    "opensInNewTab": true,
+    "showSuggestions": true,
+    "conditions": [[{ "id": "showCta", "operator": "==", "value": true }]]
+  }
+]
+```
+
+Use populated fields instead of typed IDs:
+
+```json
+{
+  "id": "featuredProjects",
+  "type": "select",
+  "label": "Featured projects",
+  "multiple": true,
+  "populate": {
+    "type": "query",
+    "query": "posts",
+    "arguments": {
+      "post_type": "project",
+      "numberposts": "20"
+    },
+    "returnFormat": {
+      "value": "id",
+      "label": "post_title"
+    }
+  }
+}
+```
+
+Use storage when values need to escape the block comment:
+
+```json
+{
+  "id": "featured",
+  "type": "toggle",
+  "label": "Featured",
+  "storage": {
+    "type": "postMeta",
+    "postMetaKey": "is_featured"
+  }
+}
+```
+
+For repeated field systems, create reusable `fields/<name>/field.json` definitions or use the `block` field to embed a component block's fields inline. This is useful for section headers, CTA groups, media pairs, responsive title lines, and repeated card systems.
 
 ## Repeaters
 
@@ -226,6 +362,8 @@ In the Blockstudio section block:
 ## RichText Gotchas
 
 `<RichText />` can introduce Gutenberg wrappers, inline styles, `contenteditable`, and `white-space: pre-wrap`. Test the actual editor output; do not assume a styled frontend span will behave the same once editable.
+
+Configure RichText props intentionally. `allowedFormats` controls formatting affordances, `tag` controls the rendered element, `placeholder` guides the editor, `preserveWhiteSpace` changes whitespace saving behavior, and `withoutInteractiveFormatting` removes formatting controls that would make content interactive.
 
 Use direct canvas RichText for stable headings, paragraph copy, and short labels. Prefer sidebar fields for:
 

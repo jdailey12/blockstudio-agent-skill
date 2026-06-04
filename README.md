@@ -24,7 +24,7 @@ npx skills add jdailey12/blockstudio-agent-skill --skill build-blockstudio-wordp
 
 ### `build-blockstudio-wordpress`
 
-Use for Blockstudio WordPress work such as custom blocks, `block.json`, file-based pages, patterns, Tailwind, ACF migration, RichText, InnerBlocks, Interactivity API, RPC, database, cron, registries, static/Astro site cloning, content modeling, CPT-backed sections, editor CSS, media fields, and backend editing verification.
+Use for Blockstudio WordPress work such as custom blocks, `block.json`, file-based pages, patterns, Tailwind, ACF migration, RichText, WYSIWYG fields, InnerBlocks, MediaPlaceholder, toolbar fields, grouped/tabbed fields, Interactivity API, RPC, database, cron, registries, static/Astro site cloning, content modeling, CPT-backed sections, editor CSS, media fields, and backend editing verification.
 
 The skill tells agents to consult:
 

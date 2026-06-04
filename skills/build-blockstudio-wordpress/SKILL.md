@@ -1,6 +1,6 @@
 ---
 name: build-blockstudio-wordpress
-description: Build with Blockstudio, also written Block Studio, for WordPress and Gutenberg. Use when the user mentions Blockstudio/Block Studio, WordPress custom blocks, block themes, block.json, file-based pages, patterns, Tailwind in Blockstudio, ACF block migration, Blockstudio attributes/fields, RichText, InnerBlocks, Interactivity API, RPC, database, cron, component blocks, Blockstudio registries, static/Astro site cloning into WordPress, pixel-perfect editable block rebuilds, Gutenberg editor UX, content modeling, CPT-backed sections, editor CSS, media fields, RichText issues, or block preview errors.
+description: Build with Blockstudio, also written Block Studio, for WordPress and Gutenberg. Use when the user mentions Blockstudio/Block Studio, WordPress custom blocks, block themes, block.json, file-based pages, patterns, Tailwind in Blockstudio, ACF block migration, Blockstudio attributes/fields, RichText, WYSIWYG, InnerBlocks, MediaPlaceholder, toolbar fields, grouped/tabbed fields, conditional fields, populated options, Interactivity API, RPC, database, cron, component blocks, Blockstudio registries, static/Astro site cloning into WordPress, pixel-perfect editable block rebuilds, Gutenberg editor UX, content modeling, CPT-backed sections, editor CSS, media fields, RichText issues, or block preview errors.
 ---
 
 # Build Blockstudio WordPress
@@ -34,7 +34,7 @@ Important URLs:
 - AI context docs: https://www.blockstudio.dev/docs/dev/ai
 - Planning / upstream LLM context fallback: https://raw.githubusercontent.com/inline0/blockstudio/refs/heads/main/includes/llm/blockstudio-llm.txt
 
-Use `references/docs-map.md` to choose official docs pages. Use `references/patterns.md` for implementation patterns, especially when cloning static/Astro sites, modeling CPT-backed sections, debugging editor preview errors, or verifying backend editing UX.
+Use `references/docs-map.md` to choose official docs pages. Use `references/patterns.md` for implementation patterns, especially when choosing editing surfaces, cloning static/Astro sites, modeling CPT-backed sections, debugging editor preview errors, or verifying backend editing UX.
 
 ## Build Editor-Ready Blocks
 
@@ -50,7 +50,14 @@ Do not put portfolios, teams, locations, products, testimonials, articles, or ot
 
 Choose the editing surface deliberately:
 
-- Use direct canvas `RichText` for normal headings, paragraph copy, and short labels when the preview stays stable.
+- Use direct canvas `RichText` for normal headings, paragraph copy, and short labels when the preview stays stable; configure `allowedFormats`, `tag`, `placeholder`, `preserveWhiteSpace`, and `withoutInteractiveFormatting` intentionally.
+- Use sidebar `wysiwyg` for formatted long copy when inline canvas editing would make the preview jump or wrap poorly.
+- Use `<InnerBlocks />` only when the design needs flexible nested Gutenberg content; constrain it with `allowedBlocks`, `template`, and `templateLock`.
+- Use `<MediaPlaceholder />` when editors naturally expect in-place image or video replacement.
+- Use toolbar-positioned fields for quick controls such as alignment, variant, count, or theme mode.
+- Use `group`, `tabs`, `message`, `conditions`, and field `switch` controls so complex sections do not become one long, confusing sidebar.
+- Use populated `select`/`radio` fields when editors should choose posts, terms, users, or dynamic records instead of typing IDs or URLs.
+- Use `storage` with `postMeta` or `option` when values need to be queryable, global, or available outside parsed block comments.
 - Use sidebar `text`, `textarea`, `link`, `files`, or repeater fields for URLs, media, structural line breaks, animated or duplicated text, form endpoints, and values that make the canvas unstable.
 - Use `text` instead of `richtext` when formatting is not needed.
 - Sideload cloned images into the Media Library when possible so editors can replace them naturally.
